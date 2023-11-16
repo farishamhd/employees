@@ -1,0 +1,56 @@
+from django.db import models
+
+# Create your models here.
+class Employees(models.Model):
+    name=models.CharField(max_length=200)
+    department=models.CharField(max_length=200)
+    salary=models.PositiveIntegerField()
+    email=models.EmailField(unique=True)
+    contact=models.CharField(null=True,max_length=20)
+    age=models.PositiveIntegerField()
+
+orm query for creating a new object
+>Employees.objects.create(name="fari",department="hr",salary=60000,email="fari@gmail.com",contact="3456",age=22)
+
+orm query for fetching all record
+>qs=Employees.objects.all()
+
+orm query for fetching a specific employee details
+>qs=Employees.objects.get(id=1)
+
+orm query for filtering  employee records
+>qs=Employees.objects.filter(department="hr")
+
+salary>50000
+>qs=Employees.objects.filter(salary__gte=50000)
+
+salary<50000
+>qs=Employees.objects.filter(salary__lte=50000)
+
+>__gte>=
+>__lte<=
+
+orm query for excluding method
+>qs=Employees.objects.exclude(department="hr")
+
+update contact and age
+>Employees.objects.filter(id=2).update(contact="newcontact",age=32)
+
+delete 
+>Employees.objects.filter(id=5).delete()
+
+sort with salary (ascending)
+>qs=Employees.objects.all().order_by("salary")
+
+
+sort with salary (descending)
+>qs=Employees.objects.all().order_by("salary")
+
+pick one  specific column
+>qs=Employees.objects.all().values_list("department")
+
+Employees.objects.all().values_list("department",flat=True).distinct()
+
+
+
+

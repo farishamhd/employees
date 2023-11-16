@@ -1,0 +1,73 @@
+{%extends 'base.html'%}
+{%block body_block%}
+<h1><center>Employee List</center></h1>
+<div>
+   <strong>Filter by Department </strong>
+    
+</div>
+<div>
+    {%for dept in departments%}
+    <a href="{%url 'emp-all'%}?department={{dept}}">{{dept}}</a>
+
+    {%endfor%}
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <form action="" method="post">
+                {%csrf_token%}
+                <div class="d-flex">
+                    <input type="text" name="box" class="form-control">
+                <button type="submit" class="btn btn-success">Search</button>
+                </div>
+                
+            </form>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <table class="table table-dark table-stripped caption-top">
+                <tr>
+                    <td>Name</td>
+                    <td>Department</td>
+                    <td>Salary</td>
+                    <td>Email</td>
+                    <td>Action</td>
+                </tr>
+
+                {%for emp in data%}
+                <tr>
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.department}}</td>
+                    <td>{{emp.salary}}</td>
+                    <td>{{emp.email}}</td>
+                    <td>
+                        <a href="{%url 'emp-detail' emp.id%}">View</a>
+                        <a href="{%url 'emp-delete' emp.id%}">Delete</a>
+                        <a href="{%url 'emp-edit' emp.id%}">Change</a>
+                    </td>
+                </tr>
+                {%endfor%}
+
+
+
+            </table>
+
+
+
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+{%endblock%}
